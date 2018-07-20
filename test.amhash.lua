@@ -1,3 +1,5 @@
+#! /usr/bin/env luajit
+
 local amhash = require "amhash"
 
 -- show defaults
