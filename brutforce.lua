@@ -29,18 +29,23 @@ end
 --print ( printable("a\0bc") )
 --print ( printable("foo é bar") )
 
+local jump = nil
+if arg[1] then jump = tonumber(arg[1]) end
 
 local function brutforce(prefix, ascii, i, j)
 	for _i, c in ipairs(ascii, i, j) do
-		print(amhash(prefix..c)..":", string.byte(prefix..c, 1, -1))
+		local opt = {}
+		if jump then opt.i = jump end
+		print(amhash(prefix..c, opt)..":", string.byte(prefix..c, 1, -1))
 	end
 end
 
 io.stderr:write("alphabet len: "..#ascii.."\n")
-for _i, p1 in ipairs(ascii) do
-	for _i, p2 in ipairs(ascii) do
+local p1,p2,p3 = "","",""
+-- for _i, p1 in ipairs(ascii) do
+--	for _i, p2 in ipairs(ascii) do
 		for _i, p3 in ipairs(ascii) do
 			brutforce(p1..p2..p3, ascii)
 		end
-	end
-end
+-- 	end
+-- end
